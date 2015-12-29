@@ -1,10 +1,9 @@
 package org.rage.neptune.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@javax.persistence.Entity
 @Table(name="owner")
 public class Owner {
 
