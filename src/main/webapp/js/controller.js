@@ -3,7 +3,7 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService',
 	  $scope.owner = ownerId();
 	  $scope.selectedEntity = {};
 	 
-	  $scope.loadEventsFromEntity = function(id){
+	  $scope.loadEntityDetails = function(id){
 		  EntityService.loadEntityById(id, function(data){
 			  $scope.selectedEntity = data;
 		  });

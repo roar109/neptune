@@ -36,7 +36,7 @@
 							</tr>
 							<tr ng-repeat="obj in entities">
 								<td>{{obj.description}}</td>
-								<td><a href="#" ng-click="loadEventsFromEntity(obj.id)">+</a></td>
+								<td><a href="#" ng-click="loadEntityDetails(obj.id)">+</a></td>
 							</tr>
 						</tbody>
 						<tfoot>
