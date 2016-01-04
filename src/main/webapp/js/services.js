@@ -1,5 +1,6 @@
 neptuneApp.factory('entityFactory', ['$resource', function($resource) {
-	return $resource('/neptune/rv1/entity/:entityId', {entityId : '@id'});
+	return $resource('/neptune/rv1/entity/:entityId', {entityId : '@id', creator:'@creator'},
+			{query:{method:'GET', isArray:true, url  : '/neptune/rv1/entity/owner/:creator'}});
 }]);
 
 neptuneApp.factory('ownerFactory', ['$resource', function($resource) {
@@ -7,10 +8,11 @@ neptuneApp.factory('ownerFactory', ['$resource', function($resource) {
 }]);
 
 neptuneApp.factory('eventFactory', ['$resource', function($resource) {
-	return $resource('/neptune/rv1/event/entity/:entityId', {entityId : '@id'}, {query : {method:'GET', isArray:true}});
+	return $resource('/neptune/rv1/event/:id', {id:'@id', entityId:'@entityId'},
+			{query:{method:'GET', isArray:true, url  : '/neptune/rv1/event/entity/:entityId'}});
 }]);
 
-neptuneApp.service('EntityService', ['entityFactory','$http','eventFactory', function(entityFactory, $http, eventFactory) {
+neptuneApp.service('EntityService', ['entityFactory','$http', function(entityFactory, $http) {
 	this.loadEntityById = function(id, callback) {
 		entityFactory.get({entityId : id}, function(data) {
 			callback(data);
@@ -18,9 +20,22 @@ neptuneApp.service('EntityService', ['entityFactory','$http','eventFactory', fun
 	};
 	
 	this.loadEntitiesByOwner = function(ownerId, callback) {
-		$http.get('/neptune/rv1/entity/owner/'+ ownerId)
-		.success(function(data) {
-				callback(data);
+		entityFactory.query({creator : ownerId}, function(data){
+			callback(data);
+		});
+	};
+	
+	this.saveEntity = function(entity, callback){
+		entityFactory.save(entity, function(data){
+			callback(data);
+		});
+	};
+} ]);
+
+neptuneApp.service('EventService', ['eventFactory', function(eventFactory) {
+	this.saveEvent = function(event, callback){
+		eventFactory.save(event, function(data){
+			callback(data);
 		});
 	};
 	
