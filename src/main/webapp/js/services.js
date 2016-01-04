@@ -1,13 +1,13 @@
 neptuneApp.factory('entityFactory', ['$resource', function($resource) {
-	return $resource('http://localhost:8080/neptune/rv1/entity/:entityId', {entityId : '@id'});
+	return $resource('/neptune/rv1/entity/:entityId', {entityId : '@id'});
 }]);
 
 neptuneApp.factory('ownerFactory', ['$resource', function($resource) {
-	return $resource('http://localhost:8080/neptune/rv1/owner/:ownerId', {ownerId : '@id'});
+	return $resource('/neptune/rv1/owner/:ownerId', {ownerId : '@id'});
 }]);
 
 neptuneApp.factory('eventFactory', ['$resource', function($resource) {
-	return $resource('http://localhost:8080/neptune/rv1/event/entity/:entityId', {entityId : '@id'}, {query : {method:'GET', isArray:true}});
+	return $resource('/neptune/rv1/event/entity/:entityId', {entityId : '@id'}, {query : {method:'GET', isArray:true}});
 }]);
 
 neptuneApp.service('EntityService', ['entityFactory','$http','eventFactory', function(entityFactory, $http, eventFactory) {
@@ -18,7 +18,7 @@ neptuneApp.service('EntityService', ['entityFactory','$http','eventFactory', fun
 	};
 	
 	this.loadEntitiesByOwner = function(ownerId, callback) {
-		$http.get('http://localhost:8080/neptune/rv1/entity/owner/'+ ownerId)
+		$http.get('/neptune/rv1/entity/owner/'+ ownerId)
 		.success(function(data) {
 				callback(data);
 		});
