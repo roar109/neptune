@@ -13,6 +13,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="css/home.css">
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script type="text/javascript"
@@ -23,51 +24,57 @@
 <script type="text/javascript" src="js/controller.js"></script>
 </head>
 <body ng-controller='HomeController as home'>
-	<div class="container-narrow">
-		<div class=".container">
-			<div class="row">
-				<div class="col-md-6">
-					<table class="table">
-						<caption>Entities</caption>
-						<tbody>
-							<tr>
-								<td>Description</td>
-								<td>Details</td>
-							</tr>
-							<tr ng-repeat="obj in entities">
-								<td>{{obj.description}}</td>
-								<td><a href="#" ng-click="loadEntityDetails(obj.id)">+</a></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td></td>
-								<td><a href="#" ng-click="clearEntitySelection()">Clear
-										Selection</a></td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-				<div class="col-md-6">
-					<table class="table table-bordered">
-						<tr>
-							<td><strong>Id</strong></td>
-							<td><div>{{selectedEntity.id}}</div> <br></td>
-						</tr>
-						<tr>
-							<td><strong>Description</strong></td>
-							<td><div>{{selectedEntity.description}}</div></td>
-						</tr>
-						<tr>
-							<td><strong>Creation</strong></td>
-							<td><div>{{selectedEntity.creation}}</div></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<input type="hidden" id="owner"
-				value="<%=request.getSession().getAttribute("ownerid")%>" />
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#" ng-click="clearEntitySelection()">Neptune</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false">Entities<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="obj in entities"><a href="#"
+							ng-click="loadEventsAndEntityDetails(obj.id)">{{obj.description}}</a></li>
+					</ul></li>
+
+				<li>
+					<button type="button" class="btn btn-default navbar-btn"
+						ng-click="clearEntitySelection()">Add Entity</button>
+				</li>
+			</ul>
 		</div>
 	</div>
+	</nav>
+
+	<div class="container">
+		<div class="starter-template">
+			<table class="table table-bordered">
+				<caption style="text-align: right;">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"
+						ng-click="addEvent()"></span>
+				</caption>
+				<thead>
+					<tr>
+						<td width="80%">Description</td>
+						<td width="20%">Creation</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in events">
+						<td>{{obj.description}}</td>
+						<td>{{obj.creation | date:"MM/dd/yyyy 'at' h:mma"}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<input type="hidden" id="owner"
+			value="<%=request.getSession().getAttribute("ownerid")%>" />
+	</div>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+		crossorigin="anonymous"></script>
 </body>
 </html>

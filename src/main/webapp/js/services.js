@@ -6,16 +6,27 @@ neptuneApp.factory('ownerFactory', ['$resource', function($resource) {
 	return $resource('http://localhost:8080/neptune/rv1/owner/:ownerId', {ownerId : '@id'});
 }]);
 
-neptuneApp.service('EntityService', ['entityFactory','$http', function(entityFactory, $http) {
+neptuneApp.factory('eventFactory', ['$resource', function($resource) {
+	return $resource('http://localhost:8080/neptune/rv1/event/entity/:entityId', {entityId : '@id'}, {query : {method:'GET', isArray:true}});
+}]);
+
+neptuneApp.service('EntityService', ['entityFactory','$http','eventFactory', function(entityFactory, $http, eventFactory) {
 	this.loadEntityById = function(id, callback) {
 		entityFactory.get({entityId : id}, function(data) {
 			callback(data);
 		});
 	};
+	
 	this.loadEntitiesByOwner = function(ownerId, callback) {
 		$http.get('http://localhost:8080/neptune/rv1/entity/owner/'+ ownerId)
 		.success(function(data) {
 				callback(data);
+		});
+	};
+	
+	this.loadEventsByEntity = function(id, callback){
+		eventFactory.query({entityId : id}, function(data){
+			callback(data);
 		});
 	};
 } ]);

@@ -41,7 +41,7 @@ public class EntityResource {
 	}
 	
 	@POST
-	@Path("/save")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ModificationResponse saveEntity(Entity entity){
