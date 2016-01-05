@@ -32,7 +32,7 @@ public class EntityDataManager {
 	}
 	
 	public List<Entity> getEntitiesByOwnerId(String ownerId){
-		Query query = em.createQuery("from Entity as e where e.creator = :creator");
+		Query query = em.createQuery("from Entity as e where e.creator = :creator order by e.creation asc");
 		query.setParameter("creator", ownerId);
 		return query.getResultList();
 	}

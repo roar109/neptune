@@ -50,24 +50,9 @@
 	<div class="container">
 		<div class="starter-template">
 			<h3>{{selectedEntity.description}}</h3>
-			<table class="table table-striped">
-				<caption style="text-align: right;">
-					<a class="glyphicon glyphicon-plus" aria-hidden="true" href="#"
-						ng-click="addEvent()"></a>
-				</caption>
-				<thead>
-					<tr>
-						<td width="80%" align="left">Description</td>
-						<td width="20%" align="left">Creation</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="obj in events">
-						<td align="left">{{obj.description}}</td>
-						<td align="left">{{obj.creation | date:"MM/dd/yyyy"}}</td>
-					</tr>
-				</tbody>
-			</table>
+			<center><a class="glyphicon glyphicon-plus" aria-hidden="true" href="#"ng-click="addEvent()"></a></center>
+			<br><br>
+			<div id="eventLayout"></div>
 		</div>
 		<input type="hidden" id="owner"
 			value="<%=request.getSession().getAttribute("ownerid")%>" />
@@ -127,5 +112,6 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
 </body>
 </html>

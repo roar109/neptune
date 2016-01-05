@@ -1,5 +1,5 @@
-neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService', 'EventService', 
-                                 function($scope, ownerId, EntityService, EventService) {
+neptuneApp.controller('HomeController', ['$scope','ownerId', 'gridLayout','EntityService', 'EventService','LayoutService', 
+                                 function($scope, ownerId, gridLayout, EntityService, EventService, LayoutService) {
 	  $scope.owner = ownerId();
 	  $scope.selectedEntity = {};
 	  $scope.entity_ = {};
@@ -9,6 +9,7 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService', 'E
 	  $scope.clearEntitySelection = function(){
 		  $scope.selectedEntity = {};
 		  $scope.events = [];
+		  $scope.resetEventLayout();
 	  };
 	  
 	  $scope.loadEventsAndEntityDetails = function(entityId){
@@ -17,6 +18,7 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService', 'E
 		  }
 		  EventService.loadEventsByEntity(entityId, function(arrayData){
 			  $scope.events = arrayData;
+			  $scope.createEventsLayout();
 		  });
 		  
 		  EntityService.loadEntityById(entityId, function(data){
@@ -57,6 +59,20 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService', 'E
 		  });
 	  };
 	  
+	  $scope.createEventsLayout = function(){
+		  $scope.resetEventLayout();
+		  
+		  $.each($scope.events, function(index, event){
+			  gridLayout().append(LayoutService.buildEventElement(event.description));
+		  });
+
+		  $scope.$gridLayout.masonry();
+	  };
+	  
+	  $scope.resetEventLayout = function(){
+		  gridLayout().empty();
+	  }
+	  
 	  $scope.addStartupListeners = function(){
 		  $('#addEventModal').on('shown.bs.modal', function () {
 			  $('#eventDescription').focus()
@@ -69,5 +85,5 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'EntityService', 'E
 
 	  $scope.loadEntitiesByOwner();
 	  $scope.addStartupListeners();
-
+	  $scope.$gridLayout = LayoutService.configureEventLayout();
 }]);

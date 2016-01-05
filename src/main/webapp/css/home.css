@@ -5,3 +5,57 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body { font-family: sans-serif; }
+
+/* ---- grid ---- */
+
+.grid {
+  background: #EEE;
+  max-width: 1200px;
+}
+
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+  width: 140px;
+  height: 110px;
+  float: left;
+  background: navy;
+  /*border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px;*/
+  color: white;
+}
+
+.grid-item--width2 { width: 120px; }
+.grid-item--width3 { width: 280px; }
+.grid-item--width4 { width: 440px; }
+
+.grid-item--height2 { height: 100px; }
+.grid-item--height3 { height: 160px; }
+.grid-item--height4 { height: 260px; }
+
+
+.grid-item--gigante {
+  width: 320px;
+  height: 360px;
+}
+
+.grid-item:hover {
+  background: #A2C;
+  border-color: white;
+  cursor: pointer;
+}

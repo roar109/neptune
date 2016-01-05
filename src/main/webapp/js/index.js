@@ -4,3 +4,7 @@ neptuneApp.value('ownerId', function clientIdFactory() {
 	//TODO validate if the owner field is not set
   return $("#owner")[0].value;
 });
+
+neptuneApp.value('gridLayout', function gridLayoutElement() {
+  return $('#eventLayout');
+});

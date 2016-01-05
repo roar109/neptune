@@ -23,7 +23,7 @@ public class EventDataManager {
 	}
 
 	public List<Event> getEventsByEntity(String entityId) {
-		final Query query = em.createQuery("from Event as e where e.entityId = :entityId");
+		final Query query = em.createQuery("from Event as e where e.entityId = :entityId order by creation asc");
 		query.setParameter("entityId", entityId);
 		return query.getResultList();
 	}
