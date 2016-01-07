@@ -5,6 +5,6 @@ neptuneApp.value('ownerId', function clientIdFactory() {
   return $("#owner")[0].value;
 });
 
-neptuneApp.value('gridLayout', function gridLayoutElement() {
+neptuneApp.value('GridLayoutElement', function gridLayoutElement() {
   return $('#eventLayout');
 });

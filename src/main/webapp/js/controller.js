@@ -1,5 +1,5 @@
-neptuneApp.controller('HomeController', ['$scope','ownerId', 'gridLayout','EntityService', 'EventService','LayoutService', 
-                                 function($scope, ownerId, gridLayout, EntityService, EventService, LayoutService) {
+neptuneApp.controller('HomeController', ['$scope','ownerId', 'GridLayoutElement','EntityService', 'EventService','LayoutService', 
+                                 function($scope, ownerId, GridLayoutElement, EntityService, EventService, LayoutService) {
 	  $scope.owner = ownerId();
 	  $scope.selectedEntity = {};
 	  $scope.entity_ = {};
@@ -61,16 +61,11 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'gridLayout','Entit
 	  
 	  $scope.createEventsLayout = function(){
 		  $scope.resetEventLayout();
-		  
-		  $.each($scope.events, function(index, event){
-			  gridLayout().append(LayoutService.buildEventElement(event.description));
-		  });
-
-		  $scope.$gridLayout.masonry();
+		  LayoutService.addEventElementsToEventLayout($scope.events);
 	  };
 	  
 	  $scope.resetEventLayout = function(){
-		  gridLayout().empty();
+		  GridLayoutElement().empty();
 	  }
 	  
 	  $scope.addStartupListeners = function(){
@@ -85,5 +80,5 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'gridLayout','Entit
 
 	  $scope.loadEntitiesByOwner();
 	  $scope.addStartupListeners();
-	  $scope.$gridLayout = LayoutService.configureEventLayout();
+	  LayoutService.configureEventLayout();
 }]);

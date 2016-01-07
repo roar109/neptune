@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<% if(request.getSession().getAttribute("ownerid") == null){request.getRequestDispatcher("index.jsp").forward(request, response);} %>
 <html ng-app="neptuneApp">
 <head>
 <meta charset="utf-8">
@@ -8,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Home</title>
+<title>Neptune Home</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
@@ -39,8 +40,12 @@
 							ng-click="loadEventsAndEntityDetails(obj.id)">{{obj.description}}</a></li>
 					</ul></li>
 				<li>
-					<button type="button" class="btn btn-default navbar-btn"
-						ng-click="addEntity()">Add Entity</button>
+					<a class="glyphicon glyphicon-plus" ng-click="addEntity()" title="Add Entity"></a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a class="glyphicon glyphicon-off" href="/neptune/logout" title="Logout"></a>
 				</li>
 			</ul>
 		</div>
@@ -48,7 +53,7 @@
 	</nav>
 
 	<div class="container">
-		<div class="starter-template">
+		<div class="starter-template" id="mainContainer">
 			<h3>{{selectedEntity.description}}</h3>
 			<center><a class="glyphicon glyphicon-plus" aria-hidden="true" href="#"ng-click="addEvent()"></a></center>
 			<br><br>

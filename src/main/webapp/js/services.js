@@ -1,4 +1,4 @@
-neptuneApp.factory('entityFactory', ['$resource', function($resource) {
+neptuneApp.factory('EntityFactory', ['$resource', function($resource) {
 	return $resource('/neptune/rv1/entity/:entityId', {entityId : '@id', creator:'@creator'},
 			{query:{method:'GET', isArray:true, url  : '/neptune/rv1/entity/owner/:creator'}});
 }]);
@@ -12,23 +12,39 @@ neptuneApp.factory('eventFactory', ['$resource', function($resource) {
 			{query:{method:'GET', isArray:true, url  : '/neptune/rv1/event/entity/:entityId'}});
 }]);
 
-neptuneApp.service('EntityService', ['entityFactory','$http', function(entityFactory, $http) {
+neptuneApp.service('ErrorService', function() {
+	this.handleRequestError = function(error){
+		//TODO too ugly :)
+		var txt = 'An error has ocurred in the request. Please try again.';
+		var contain = $('<div>', {class:'alert alert-warning alert-dismissible', role:'alert'});
+		var but = $('<button>',{type:'button', class:'close'});
+		contain.attr('data-dismiss','alert');
+		contain.attr('arial-label','Close');
+		but.append($('<span>',{}).text('x').attr('aria-hidden','true'));
+		contain.append(but);
+		contain.append($('<div>', {}).text(txt));
+		
+		$('#mainContainer').prepend(contain);
+	};
+});
+
+neptuneApp.service('EntityService', ['EntityFactory','$http','ErrorService', function(EntityFactory, $http, ErrorService) {
 	this.loadEntityById = function(id, callback) {
-		entityFactory.get({entityId : id}, function(data) {
+		EntityFactory.get({entityId : id}, function(data) {
 			callback(data);
-		});
+		}, ErrorService.handleRequestError);
 	};
 	
 	this.loadEntitiesByOwner = function(ownerId, callback) {
-		entityFactory.query({creator : ownerId}, function(data){
+		EntityFactory.query({creator : ownerId}, function(data){
 			callback(data);
-		});
+		}, ErrorService.handleRequestError);
 	};
 	
 	this.saveEntity = function(entity, callback){
-		entityFactory.save(entity, function(data){
+		EntityFactory.save(entity, function(data){
 			callback(data);
-		});
+		}, ErrorService.handleRequestError);
 	};
 } ]);
 
@@ -47,7 +63,7 @@ neptuneApp.service('EventService', ['eventFactory', function(eventFactory) {
 } ]);
 
 
-neptuneApp.service('LayoutService', ['gridLayout', function(gridLayout) {
+neptuneApp.service('LayoutService', ['GridLayoutElement', function(GridLayoutElement) {
 	var this_ = this;
 	
 	this.getRandomColor = function(){
@@ -56,25 +72,32 @@ neptuneApp.service('LayoutService', ['gridLayout', function(gridLayout) {
 	};
 	
 	this.buildEventElement = function(innerText){
-		var cssClasses = [/*"grid-item--width2","grid-item--width3","grid-item--width4",*/
-		                  "grid-item--height2","grid-item--height3","grid-item--height4"];
+		var cssClasses = ["grid-item--height2","grid-item--height3","grid-item--height4"];
 		var cssClass = 'grid-item '+cssClasses[Math.floor(Math.random() * cssClasses.length)];
 		//TODO build this in a better way
-		return "<div class='"+cssClass+"' style='font-size: 100%;background:"+this_.getRandomColor()+"'>"+innerText+"</div>";
+		//return "<div class='"+cssClass+"' style='background:"+this_.getRandomColor()+"'>"+innerText+"</div>";
+		return $("<div>", {class: cssClass, style : 'background:'+this_.getRandomColor()}).text(innerText);
 	};
 	
 	this.configureEventLayout = function(){
-		var $gridLayout = gridLayout().masonry({
+		var gridLayout = GridLayoutElement().masonry({
 		    itemSelector: '.grid-item',
 		    columnWidth: 200,
 		    gutter: 20
 	   });
 
-	  $gridLayout.on('click', '.grid-item', function() {
+		gridLayout.on('click', '.grid-item', function() {
 		  $(this).toggleClass('grid-item--gigante');
-		  $gridLayout.masonry();
-	  });
+		  gridLayout.masonry();
+		});
 	  
-	  return $gridLayout;
+	  this_.$gridLayout = gridLayout;
+	};
+	
+	this.addEventElementsToEventLayout = function(eventList){
+		$.each(eventList, function(index, event){
+			  GridLayoutElement().append(this_.buildEventElement(event.description));
+		});
+		this_.$gridLayout.masonry();
 	};
 }]);
