@@ -12,8 +12,10 @@ public class Event {
 
 	@Id
 	private String id;
+	private String title;
 	private String description;
 	private Date creation;
+
 	@Column(name = "entity_id")
 	private String entityId;
 
@@ -23,6 +25,14 @@ public class Event {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {

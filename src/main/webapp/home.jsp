@@ -59,30 +59,44 @@
 			<br><br>
 			<div id="eventLayout"></div>
 		</div>
-		<input type="hidden" id="owner"
-			value="<%=request.getSession().getAttribute("ownerid")%>" />
+		<input type="hidden" id="owner" value="<%=request.getSession().getAttribute("ownerid")%>" />
 	</div>
 
 	<div class="modal fade" tabindex="-1" role="dialog" id="addEventModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">Add Event</h4>
 				</div>
 				<div class="modal-body">
-					<form novalidate class="simple-form">
-						Description: <input type="text" ng-model="event_.description"
-							id="eventDescription" /><br />
+					<form novalidate class="form-horizontal">
+						<div class="form-group">
+							<label for="eventTitle" class="col-sm-2 control-label">Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="event_.title" id="eventTitle" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="eventDescription" class="col-sm-2 control-label">Description</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="event_.description" id="eventDescription" />
+							</div>
+						</div>
+						<div class="form-group">
+						    <label for="eventInputFile" class="col-sm-2 control-label">File input</label>
+						    <div class="col-sm-10">
+						    	<input type="file" id="eventInputFile" class="form-control" disabled="disabled">
+						    	<p class="help-block">Example block-level help text here.</p>
+						    </div>
+						  </div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary"
-						ng-click="saveEvent(event_)">Save</button>
+					<button type="button" class="btn btn-primary" ng-click="saveEvent(event_)">Save</button>
 				</div>
 			</div>
 		</div>
@@ -92,22 +106,24 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">Add Entity</h4>
 				</div>
 				<div class="modal-body">
-					<form novalidate class="simple-form">
-						Description: <input type="text" ng-model="entity_.description"
-							id="entityDescription" /><br />
+					<form novalidate class="form-horizontal">
+						<div class="form-group">
+							<label for="entityDescription" class="col-sm-2 control-label">Description</label>
+							<div class="col-sm-10">
+								<input type="text" ng-model="entity_.description" id="entityDescription" />
+							</div>
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary"
-						ng-click="saveEntity(entity_)">Save</button>
+					<button type="button" class="btn btn-primary" ng-click="saveEntity(entity_)">Save</button>
 				</div>
 			</div>
 		</div>

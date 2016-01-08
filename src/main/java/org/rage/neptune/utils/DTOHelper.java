@@ -35,7 +35,7 @@ public class DTOHelper {
 	public static EventDTO transform(Event event) {
 		if (event == null)
 			return null;
-		return new EventDTO(event.getId(), event.getDescription(), event.getCreation());
+		return new EventDTO(event.getId(),event.getTitle(), event.getDescription(), event.getCreation());
 	}
 
 }

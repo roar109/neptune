@@ -70,7 +70,7 @@ neptuneApp.controller('HomeController', ['$scope','ownerId', 'GridLayoutElement'
 	  
 	  $scope.addStartupListeners = function(){
 		  $('#addEventModal').on('shown.bs.modal', function () {
-			  $('#eventDescription').focus()
+			  $('#eventTitle').focus()
 		   });
 		  
 		  $('#addEntityModal').on('shown.bs.modal', function () {
