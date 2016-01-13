@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/roar109/neptune/status.png)](https://drone.io/github.com/roar109/neptune/latest)
+
 ### General overview
 
 General goals
