@@ -4,7 +4,7 @@
    version="2.0">
    <persistence-unit name="neptune-pu" transaction-type="JTA">
 
-      <jta-data-source>java:/NeptuneDS</jta-data-source>
+      <jta-data-source>java:jboss/datasources/neptune</jta-data-source>
 
       <properties>
          <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
