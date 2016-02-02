@@ -45,7 +45,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<a class="glyphicon glyphicon-off" href="/neptune/logout" title="Logout"></a>
+					<a class="glyphicon glyphicon-off" href="/logout" title="Logout"></a>
 				</li>
 			</ul>
 		</div>

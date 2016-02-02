@@ -1,15 +1,15 @@
 neptuneApp.factory('EntityFactory', ['$resource', function($resource) {
-	return $resource('/neptune/rv1/entity/:entityId', {entityId : '@id', creator:'@creator'},
-			{query : { method:'GET', isArray:true, url  : '/neptune/rv1/entity/owner/:creator'}});
+	return $resource('/rv1/entity/:entityId', {entityId : '@id', creator:'@creator'},
+			{query : { method:'GET', isArray:true, url  : '/rv1/entity/owner/:creator'}});
 }]);
 
 neptuneApp.factory('ownerFactory', ['$resource', function($resource) {
-	return $resource('/neptune/rv1/owner/:ownerId', {ownerId : '@id'});
+	return $resource('/rv1/owner/:ownerId', {ownerId : '@id'});
 }]);
 
 neptuneApp.factory('eventFactory', ['$resource', function($resource) {
-	return $resource('/neptune/rv1/event/:id', {id:'@id', entityId:'@entityId'},
-			{query : { method:'GET', isArray:true, url  : '/neptune/rv1/event/entity/:entityId'}});
+	return $resource('/rv1/event/:id', {id:'@id', entityId:'@entityId'},
+			{query : { method:'GET', isArray:true, url  : '/rv1/event/entity/:entityId'}});
 }]);
 
 neptuneApp.service('ErrorService', function() {
