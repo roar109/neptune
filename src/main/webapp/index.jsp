@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container">
-      <form class="form-signin" action="/auth" method="post" >
+      <form class="form-signin" action="/neptune/auth" method="post" >
         <h2 class="form-signin-heading">Please log in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" name="inputEmail" placeholder="Email address" required autofocus>
