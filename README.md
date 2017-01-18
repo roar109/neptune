@@ -1,4 +1,3 @@
-[![Build Status](https://drone.io/github.com/roar109/neptune/status.png?t=4)](#)
 
 ### General overview
 
